@@ -12,17 +12,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-      - name: Install
+      - name: Install dependencies
         run: npm install
-      - name: Prebuild
+      - name: Expo prebuild
         run: npx expo prebuild --platform android --non-interactive --clean
-      - name: Chmod
-        working-directory: android
-        run: chmod +x gradlew
-      - name: Build
-        working-directory: android
-        run:./gradlew assembleRelease
-      - name: Upload
+      - name: Grant permission
+        run: chmod +x./android/gradlew
+      - name: Build APK
+        run:./android/gradlew assembleRelease
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Accsys-APK
