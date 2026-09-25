@@ -1,5 +1,8 @@
 name: Build APK
-on: [push]
+on:
+  push:
+    branches: [main]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,10 +19,10 @@ jobs:
         run: npm install
       - name: Expo prebuild
         run: npx expo prebuild --platform android --non-interactive --clean
-      - name: Grant permission
+      - name: Grant execute permission
         run: chmod +x./android/gradlew
       - name: Build APK
-        run:./android/gradlew assembleRelease
+        run: ./android/gradlew assembleRelease
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
